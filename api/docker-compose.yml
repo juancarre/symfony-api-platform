@@ -25,12 +25,13 @@ services:
     environment:
       PHP_IDE_CONFIG: serverName=Docker
       PHP_XDEBUG_ENABLED: 1
-      #XDEBUG_CONFIG: remote_host=172.17.0.1 remote_port=9005 # Linux users
-      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9005 # MacOS users
+      XDEBUG_CLIENT_HOST: host.docker.internal
+      XDEBUG_CLIENT_PORT: 9003
     volumes:
       - ./:/appdata/www
       #   - ./docker/php/xdebug-linux.ini:/usr/local/etc/php/conf.d/xdebug.ini # Linux users
-      - ./docker/php/xdebug-macos.ini:/usr/local/etc/php/conf.d/xdebug.ini #MacOS users
+      #   - ./docker/php/xdebug-macos.ini:/usr/local/etc/php/conf.d/xdebug.ini #MacOS users
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini #Xdebug >3
       - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
     depends_on:
       - symfony-api-platform-db
@@ -53,7 +54,25 @@ services:
     networks:
       - symfony-api-platform-network
 
+###> doctrine/doctrine-bundle ###
+  database:
+    image: postgres:${POSTGRES_VERSION:-13}-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      # You should definitely change the password in production
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
+      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/postgresql/data:rw
+###< doctrine/doctrine-bundle ###
+
 volumes:
+
+###> doctrine/doctrine-bundle ###
+  db-data:
+###< doctrine/doctrine-bundle ###
   symfony-api-platform-db-data:
 
 networks:
