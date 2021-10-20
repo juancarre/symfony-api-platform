@@ -8,3 +8,10 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> Other files and folders ###
+.php_cs_cache
+.idea
+.DS_store
+docker-compose.yml
+###< Other files and folders ###
