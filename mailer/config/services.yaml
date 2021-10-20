@@ -4,6 +4,8 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+            $emailDefaultSender: '%env(string:MAILER_DEFAULT_SENDER)%'
 
     Mailer\:
         resource: '../src/'
