@@ -1,0 +1,34 @@
+<?php
+
+
+namespace App\Api\Action\User;
+
+
+use App\Service\User\ResendActivationEmailService;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+
+class ResendActivationEmail
+{
+    /**
+     * @var ResendActivationEmailService
+     */
+    private ResendActivationEmailService $activationEmailService;
+
+    /**
+     * ResendActivationEmail constructor.
+     * @param ResendActivationEmailService $activationEmailService
+     */
+    public function __construct(ResendActivationEmailService $activationEmailService)
+    {
+        $this->activationEmailService = $activationEmailService;
+    }
+
+
+    public function __invoke(Request $request): JsonResponse
+    {
+        $this->activationEmailService->resend($request);
+
+        return new JsonResponse(['message' => 'Activation email sent']);
+    }
+}
