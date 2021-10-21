@@ -6,6 +6,8 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Exception\User\UserNotFoundException;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 
 class UserRepository extends BaseRepository
 {
@@ -15,6 +17,10 @@ class UserRepository extends BaseRepository
         return User::class;
     }
 
+    /**
+     * @param string $email
+     * @return User
+     */
     public function findOneByEmailOrFail(string $email): User
     {
         if (null === $user = $this->objectRepository->findOneBy(['email' => $email])){
@@ -25,9 +31,23 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * @param string $id
+     * @param string $token
+     * @return User
+     */
+    public function findOneInactiveByIdAndTokenOrFail(string $id, string $token): User
+    {
+        if (null === $user = $this->objectRepository->findOneBy(['id' => $id, 'token' => $token, 'active' => false])) {
+            throw UserNotFoundException::fromUserIdAndToken($id, $token);
+        }
+
+        return $user;
+    }
+
+    /**
      * @param User $user
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(User $user): void
     {
@@ -36,8 +56,8 @@ class UserRepository extends BaseRepository
 
     /**
      * @param User $user
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function remove(User $user): void
     {
