@@ -5,7 +5,8 @@ services:
         autowire: true
         autoconfigure: true
         bind:
-            $emailDefaultSender: '%env(string:MAILER_DEFAULT_SENDER)%'
+            $mailerDefaultSender: '%env(string:MAILER_DEFAULT_SENDER)%'
+            $host:                '%env(string:HOST)%'
 
     Mailer\:
         resource: '../src/'
@@ -16,5 +17,5 @@ services:
             - '../src/Tests/'
 
     Mailer\Controller\:
-        resource: '../src/Controller'
+        resource: '../src/Controller/'
         tags: ['controller.service_arguments']

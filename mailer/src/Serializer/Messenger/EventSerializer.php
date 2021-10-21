@@ -26,7 +26,7 @@ class EventSerializer extends Serializer
     {
         $map = ['App\Messenger\Message\UserRegisteredMessage' => UserRegisteredMessage::class];
 
-        if (array_key_exists($map, $type)) {
+        if (array_key_exists($type, $map)) {
             return $map[$type];
         }
 
