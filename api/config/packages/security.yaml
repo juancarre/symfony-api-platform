@@ -8,7 +8,7 @@ security:
 
     providers:
         user_provider:
-            id: App\Security\Core\UserProvider
+            id: App\Security\Core\User\UserProvider
 
     firewalls:
         register:
@@ -26,7 +26,6 @@ security:
         login:
             pattern: ^/api/v1/users/login
             stateless: true
-            anonymous: true
             provider: user_provider
             json_login:
                 check_path: /api/v1/users/login_check
