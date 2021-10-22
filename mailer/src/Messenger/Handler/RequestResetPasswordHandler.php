@@ -4,13 +4,13 @@
 namespace Mailer\Messenger\Handler;
 
 
-use Mailer\Messenger\Message\UserRegisteredMessage;
+use Mailer\Messenger\Message\RequestResetPasswordMessage;
 use Mailer\Service\Mailer\ClientRoute;
 use Mailer\Service\Mailer\MailerService;
 use Mailer\Templating\TwigTemplate;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class UserRegisteredMessageHandler implements MessageHandlerInterface
+class RequestResetPasswordHandler implements MessageHandlerInterface
 {
     /**
      * @var MailerService
@@ -22,7 +22,7 @@ class UserRegisteredMessageHandler implements MessageHandlerInterface
     private string $host;
 
     /**
-     * UserRegisteredMessageHandler constructor.
+     * RequestResetPasswordHandler constructor.
      * @param MailerService $mailerService
      * @param string $host
      */
@@ -32,23 +32,19 @@ class UserRegisteredMessageHandler implements MessageHandlerInterface
         $this->host = $host;
     }
 
-    /**
-     * @param UserRegisteredMessage $message
-     * @throws \Exception
-     */
-    public function __invoke(UserRegisteredMessage $message)
+    public function __invoke(RequestResetPasswordMessage $message): void
     {
+
         $payload = [
-            'name' => $message->getName(),
             'url' => sprintf(
-                '%s%s?token=%s&uid=%s',
+                '%s%s?uid=%s&rpt=%s',
                 $this->host,
-                ClientRoute::ACTIVATE_ACCOUNT,
-                $message->getToken(),
-                $message->getId()
+                ClientRoute::RESET_PASSWORD,
+                $message->getId(),
+                $message->getResetPasswordToken()
             )
         ];
 
-        $this->mailerService->send($message->getEmail(), TwigTemplate::USER_REGISTER, $payload);
+        $this->mailerService->send($message->getEmail(), TwigTemplate::REQUEST_RESET_PASSWORD, $payload);
     }
 }
