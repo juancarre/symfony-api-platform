@@ -20,6 +20,7 @@ class EncoderService
 
     /**
      * EncoderService constructor.
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
      */
     public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
     {
