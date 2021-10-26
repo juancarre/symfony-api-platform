@@ -4,7 +4,6 @@
 namespace App\Entity;
 
 
-use PhpParser\Node\Scalar\String_;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
 
