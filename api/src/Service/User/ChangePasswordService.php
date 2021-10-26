@@ -36,16 +36,16 @@ class ChangePasswordService
     }
 
     /**
-     * @param Request $request
-     * @param User $user
+     * @param string $userId
+     * @param string $newPassword
+     * @param string $oldPassword
      * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function changePassword(Request $request, User $user): User
+    public function changePassword(string $userId, string $newPassword, string $oldPassword): User
     {
-        $oldPassword = RequestService::getField($request, 'oldPassword');
-        $newPassword = RequestService::getField($request, 'newPassword');
+        $user = $this->userRepository->findOneByIdOrFail($userId);
 
         if (!$this->encoderService->isValidPassword($user, $oldPassword)) {
             throw PasswordException::oldPasswordDoesNotMatch();

@@ -18,6 +18,17 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * @param string $id
+     * @return User
+     */
+    public function findOneByIdOrFail(string $id): User
+    {
+        if (null === $user = $this->objectRepository->findOneBy(['id' => $id])){
+            throw UserNotFoundException::fromId($id);
+        }
+    }
+
+    /**
      * @param string $email
      * @return User
      */

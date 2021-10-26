@@ -37,13 +37,13 @@ class RequestResetPasswordService
     }
 
     /**
-     * @param Request $request
+     * @param string $email
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function send(Request $request):void
+    public function send(string $email):void
     {
-        $user = $this->userRepository->findOneByEmailOrFail(RequestService::getField($request, 'email'));
+        $user = $this->userRepository->findOneByEmailOrFail($email);
         $user->setResetPasswordToken(sha1(uniqid()));
 
         $this->userRepository->save($user);
