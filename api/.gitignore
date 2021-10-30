@@ -19,6 +19,7 @@
 .idea
 .DS_store
 docker-compose.yml
+.php-cs-fixer.cache
 ###< Other files and folders ###
 
 ###> lexik/jwt-authentication-bundle ###
