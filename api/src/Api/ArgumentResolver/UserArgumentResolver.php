@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Api\ArgumentResolver;
-
 
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -14,20 +12,12 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserArgumentResolver implements ArgumentValueResolverInterface
 {
-    /**
-     * @var TokenStorageInterface
-     */
     private TokenStorageInterface $tokenStorage;
-    /**
-     * @var UserRepository
-     */
-    private UserRepository $userRepository;
 
+    private UserRepository $userRepository;
 
     /**
      * UserArgumentResolver constructor.
-     * @param TokenStorageInterface $tokenStorage
-     * @param UserRepository $userRepository
      */
     public function __construct(TokenStorageInterface $tokenStorage, UserRepository $userRepository)
     {
@@ -53,5 +43,4 @@ class UserArgumentResolver implements ArgumentValueResolverInterface
     {
         yield $this->userRepository->findOneByEmailOrFail($this->tokenStorage->getToken()->getUser()->getEmail());
     }
-
 }

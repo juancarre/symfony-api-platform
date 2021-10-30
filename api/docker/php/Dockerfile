@@ -23,8 +23,8 @@ RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer &
 RUN composer self-update
 
 RUN wget https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v3.2.1/php-cs-fixer.phar
-#RUN chmod a+x php-cs-fixer
-#RUN mv php-cs-fixer /usr/local/bin/php-cs-fixer
+RUN chmod a+x php-cs-fixer.phar
+RUN mv php-cs-fixer.phar /usr/local/bin/php-cs-fixer
 
 RUN mkdir -p /appdata/www
 

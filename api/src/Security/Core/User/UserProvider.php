@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Security\Core\User;
-
 
 use App\Entity\User;
 use App\Exception\User\UserNotFoundException;
@@ -17,14 +15,10 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
-    /**
-     * @var UserRepository
-     */
     private UserRepository $userRepository;
 
     /**
      * UserProvider constructor.
-     * @param UserRepository $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -50,8 +44,6 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     }
 
     /**
-     * @param UserInterface $user
-     * @param string $newEncodedPassword
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -60,13 +52,8 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
         $user->setPassword($newEncodedPassword);
 
         $this->userRepository->save($user);
-
     }
 
-    /**
-     * @param string $class
-     * @return bool
-     */
     public function supportsClass(string $class): bool
     {
         return User::class === $class;

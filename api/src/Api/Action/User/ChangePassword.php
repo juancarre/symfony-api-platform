@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Api\Action\User;
-
 
 use App\Entity\User;
 use App\Service\Request\RequestService;
@@ -13,14 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ChangePassword
 {
-    /**
-     * @var ChangePasswordService
-     */
     private ChangePasswordService $changePasswordService;
 
     /**
      * ChangePassword constructor.
-     * @param ChangePasswordService $changePasswordService
      */
     public function __construct(ChangePasswordService $changePasswordService)
     {
@@ -28,9 +22,6 @@ class ChangePassword
     }
 
     /**
-     * @param Request $request
-     * @param User $user
-     * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Messenger\Message;
-
 
 class RequestResetPasswordMessage
 {
@@ -20,29 +18,18 @@ class RequestResetPasswordMessage
         $this->resetPasswordToken = $resetPasswordToken;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return string
-     */
     public function getResetPasswordToken(): string
     {
         return $this->resetPasswordToken;
     }
-
-
 }

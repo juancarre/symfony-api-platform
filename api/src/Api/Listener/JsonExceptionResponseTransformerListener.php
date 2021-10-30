@@ -1,14 +1,10 @@
 <?php
 
-
 namespace App\Api\Listener;
 
-
-use phpDocumentor\Reflection\Types\This;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Symfony\Component\Validator\Constraints\Time;
 
 class JsonExceptionResponseTransformerListener
 {
@@ -16,11 +12,11 @@ class JsonExceptionResponseTransformerListener
     {
         $exception = $event->getThrowable();
 
-        if ($exception instanceof HttpExceptionInterface){
+        if ($exception instanceof HttpExceptionInterface) {
             $data = [
                 'class' => get_class($exception),
                 'code' => $exception->getStatusCode(),
-                'message' => $exception->getMessage()
+                'message' => $exception->getMessage(),
             ];
 
             $event->setResponse($this->prepareResponse($data, $data['code']));

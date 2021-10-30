@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service\Password;
-
 
 use App\Entity\User;
 use App\Exception\Password\PasswordException;
@@ -13,14 +11,10 @@ class EncoderService
 {
     private const MINIMUN_LENGTH = 6;
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
     private UserPasswordEncoderInterface $userPasswordEncoder;
 
     /**
      * EncoderService constructor.
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
      */
     public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
     {

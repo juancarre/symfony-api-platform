@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManager;
@@ -17,23 +16,14 @@ use Doctrine\Persistence\ObjectRepository;
 
 abstract class BaseRepository
 {
-    /**
-     * @var ManagerRegistry
-     */
     private ManagerRegistry $managerRegistry;
-    /**
-     * @var Connection
-     */
+
     protected Connection $connection;
-    /**
-     * @var ObjectRepository
-     */
+
     protected ObjectRepository $objectRepository;
 
     /**
      * BaseRepository constructor.
-     * @param ManagerRegistry $managerRegistry
-     * @param Connection $connection
      */
     public function __construct(ManagerRegistry $managerRegistry, Connection $connection)
     {
@@ -45,10 +35,9 @@ abstract class BaseRepository
     abstract protected static function entityClass(): string;
 
     /**
-     * @param Object $entity
      * @throws ORMException
      */
-    public function persistEntity(Object $entity): void
+    public function persistEntity(object $entity): void
     {
         $this->getEntityManager()->persist($entity);
     }
@@ -65,31 +54,28 @@ abstract class BaseRepository
     }
 
     /**
-     * @param Object $entity
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function saveEntity(Object $entity)
+    public function saveEntity(object $entity)
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
     }
 
     /**
-     * @param Object $entity
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function removeEntity(Object $entity)
+    public function removeEntity(object $entity)
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
     }
 
     /**
-     * @param string $query
      * @param array $params
-     * @return array
+     *
      * @throws Exception
      */
     protected function executeFetchQuery(string $query, $params = []): array
@@ -98,8 +84,8 @@ abstract class BaseRepository
     }
 
     /**
-     * @param string $query
      * @param array $params
+     *
      * @throws Exception
      */
     protected function executeQuery(string $query, $params = []): void
@@ -110,10 +96,11 @@ abstract class BaseRepository
     /**
      * @return ObjectManager|EntityManager
      */
-    private function getEntityManager(){
+    private function getEntityManager()
+    {
         $entityManager = $this->managerRegistry->getManager();
 
-        if ($entityManager->isOpen()){
+        if ($entityManager->isOpen()) {
             return $entityManager;
         }
 

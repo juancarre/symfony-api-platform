@@ -3,20 +3,20 @@ parameters: # password
 
 App\Entity\User:
     User-0:
-        --construct:
+        __construct:
             name: Peter
             email: peter@api.com
         password: <{testing_password_hash}>
         active: true
         resetPasswordToken: '123456'
     User-1:
-        --construct:
+        __construct:
             name: Brian
             email: brian@api.com
         password: <{testing_password_hash}>
         active: true
     User-2:
-        --construct:
+        __construct:
             name: Roger
             email: roger@api.com
         password: <{testing_password_hash}>

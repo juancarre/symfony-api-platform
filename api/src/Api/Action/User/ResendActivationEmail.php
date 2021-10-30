@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Api\Action\User;
-
 
 use App\Service\Request\RequestService;
 use App\Service\User\ResendActivationEmailService;
@@ -13,24 +11,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ResendActivationEmail
 {
-    /**
-     * @var ResendActivationEmailService
-     */
     private ResendActivationEmailService $activationEmailService;
 
     /**
      * ResendActivationEmail constructor.
-     * @param ResendActivationEmailService $activationEmailService
      */
     public function __construct(ResendActivationEmailService $activationEmailService)
     {
         $this->activationEmailService = $activationEmailService;
     }
 
-
     /**
-     * @param Request $request
-     * @return JsonResponse
      * @throws ORMException
      * @throws OptimisticLockException
      */

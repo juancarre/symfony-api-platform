@@ -1,32 +1,21 @@
 <?php
 
-
 namespace App\Service\User;
-
 
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\Password\EncoderService;
-use App\Service\Request\RequestService;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Symfony\Component\HttpFoundation\Request;
 
 class ResetPasswordService
 {
-    /**
-     * @var UserRepository
-     */
     private UserRepository $userRepository;
-    /**
-     * @var EncoderService
-     */
+
     private EncoderService $encoderService;
 
     /**
      * ResetPasswordService constructor.
-     * @param UserRepository $userRepository
-     * @param EncoderService $encoderService
      */
     public function __construct(UserRepository $userRepository, EncoderService $encoderService)
     {
@@ -35,10 +24,6 @@ class ResetPasswordService
     }
 
     /**
-     * @param string $userId
-     * @param string $resetPasswordToken
-     * @param string $password
-     * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */

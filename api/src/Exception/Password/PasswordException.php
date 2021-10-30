@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Exception\Password;
-
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -17,5 +15,4 @@ class PasswordException extends BadRequestHttpException
     {
         throw new self('Old password does not match');
     }
-
 }

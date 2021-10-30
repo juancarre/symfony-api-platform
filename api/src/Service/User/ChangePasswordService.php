@@ -1,33 +1,22 @@
 <?php
 
-
 namespace App\Service\User;
-
 
 use App\Entity\User;
 use App\Exception\Password\PasswordException;
 use App\Repository\UserRepository;
 use App\Service\Password\EncoderService;
-use App\Service\Request\RequestService;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Symfony\Component\HttpFoundation\Request;
 
 class ChangePasswordService
 {
-    /**
-     * @var UserRepository
-     */
     private UserRepository $userRepository;
-    /**
-     * @var EncoderService
-     */
+
     private EncoderService $encoderService;
 
     /**
      * ChangePasswordService constructor.
-     * @param UserRepository $userRepository
-     * @param EncoderService $encoderService
      */
     public function __construct(UserRepository $userRepository, EncoderService $encoderService)
     {
@@ -36,10 +25,6 @@ class ChangePasswordService
     }
 
     /**
-     * @param string $userId
-     * @param string $newPassword
-     * @param string $oldPassword
-     * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */

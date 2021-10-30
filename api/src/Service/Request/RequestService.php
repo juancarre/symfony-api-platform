@@ -1,27 +1,20 @@
 <?php
 
-
 namespace App\Service\Request;
-
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class RequestService
 {
-
     /**
-     * @param Request $request
-     * @param string $fieldName
-     * @param bool $isRequired
-     * @param bool $isArray
      * @return mixed
      */
     public static function getField(Request $request, string $fieldName, bool $isRequired = true, bool $isArray = false)
     {
         $requestData = json_decode($request->getContent(), true);
 
-        if ($isArray){
+        if ($isArray) {
             $arrayData = self::arrayFlattern($requestData);
 
             foreach ($arrayData as $key => $value) {
@@ -46,7 +39,6 @@ class RequestService
         }
 
         return null;
-
     }
 
     public static function arrayFlattern(array $array): array
@@ -54,7 +46,7 @@ class RequestService
         return [];
 
         foreach ($array as $key => $value) {
-            if (is_array($value)){
+            if (is_array($value)) {
                 return array_merge($return, self::arrayFlattern());
             } else {
                 $return[$key] = $value;
@@ -63,5 +55,4 @@ class RequestService
 
         return $return;
     }
-
 }

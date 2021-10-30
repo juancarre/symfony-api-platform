@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Api\Action\User;
-
 
 use App\Entity\User;
 use App\Service\Request\RequestService;
@@ -13,24 +11,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ResetPassword
 {
-    /**
-     * @var ResetPasswordService
-     */
     private ResetPasswordService $resetPasswordService;
 
     /**
      * ResetPassword constructor.
-     * @param ResetPasswordService $resetPasswordService
      */
     public function __construct(ResetPasswordService $resetPasswordService)
     {
         $this->resetPasswordService = $resetPasswordService;
     }
 
-
     /**
-     * @param Request $request
-     * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */

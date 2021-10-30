@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Api\Action\User;
-
 
 use App\Entity\User;
 use App\Service\Request\RequestService;
@@ -13,14 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ActivateAccount
 {
-    /**
-     * @var ActivateAccountService
-     */
     private ActivateAccountService $activateAccountService;
 
     /**
      * ActivateAccount constructor.
-     * @param ActivateAccountService $activateAccountService
      */
     public function __construct(ActivateAccountService $activateAccountService)
     {
@@ -28,9 +22,6 @@ class ActivateAccount
     }
 
     /**
-     * @param Request $request
-     * @param string $id
-     * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */
