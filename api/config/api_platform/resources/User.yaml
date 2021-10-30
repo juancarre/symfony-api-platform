@@ -17,7 +17,7 @@ App\Entity\User:
       controller: App\Api\Action\User\ResendActivationEmail
       deserialize: false
       openapi_context:
-        summary: Sends activation email to inactive user
+        summary: Send activation email to inactive user
         requestBody:
           content:
             application/json:
@@ -88,21 +88,9 @@ App\Entity\User:
                   properties:
                     message:
                       type: string
-  itemOperations:
-    get:
-      method: GET
-    activate:
-      method: PUT
-      path: /users/{id}/activate
-      controller: App\Api\Action\User\ActivateAccount
-      deserialize: false
-      denormalization_context:
-        groups: [user_activate]
-      openapi_context:
-        summary: Activates a user
-    reset_password:
-      method: PUT
-      path: /users/{id}/reset_password
+    reset_password_token:
+      method: POST
+      path: /users/reset_password
       controller: App\Api\Action\User\ResetPassword
       deserialize: false
       openapi_context:
@@ -113,6 +101,9 @@ App\Entity\User:
               schema:
                 type: object
                 properties:
+                  userId:
+                    type: string
+                    required: true
                   resetPasswordToken:
                     type: string
                     required: true
@@ -123,12 +114,15 @@ App\Entity\User:
           200:
             description: OK
             content:
-              application/ld+json:
+              application/json:
                 schema:
-                  $ref: '#/components/schemas/User:jsonld-user_read'
+                  type: object
+                  properties:
+                    User:
+                      type: object
     change_password:
-      method: PUT
-      path: /users/{id}/change_password
+      method: POST
+      path: /users/change_password
       controller: App\Api\Action\User\ChangePassword
       deserialize: false
       openapi_context:
@@ -145,4 +139,15 @@ App\Entity\User:
                   newPassword:
                     type: string
                     required: true
-
+  itemOperations:
+    get:
+      method: GET
+    activate:
+      method: PUT
+      path: /users/{id}/activate
+      controller: App\Api\Action\User\ActivateAccount
+      deserialize: false
+      denormalization_context:
+        groups: [user_activate]
+      openapi_context:
+        summary: Activates a user
