@@ -23,6 +23,8 @@ class User implements UserInterface
 
     /**
      * User constructor.
+     * @param string $name
+     * @param string $email
      */
     public function __construct(string $name, string $email)
     {

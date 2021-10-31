@@ -18,6 +18,8 @@ class RequestResetPasswordService
 
     /**
      * RequestResetPasswordService constructor.
+     * @param UserRepository $userRepository
+     * @param MessageBusInterface $messageBus
      */
     public function __construct(UserRepository $userRepository, MessageBusInterface $messageBus)
     {
@@ -26,6 +28,7 @@ class RequestResetPasswordService
     }
 
     /**
+     * @param string $email
      * @throws ORMException
      * @throws OptimisticLockException
      */

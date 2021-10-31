@@ -13,6 +13,7 @@ class ActivateAccountService
 
     /**
      * ActivateAccountService constructor.
+     * @param UserRepository $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -20,6 +21,9 @@ class ActivateAccountService
     }
 
     /**
+     * @param string $id
+     * @param string $token
+     * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */
