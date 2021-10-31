@@ -15,6 +15,7 @@ class ChangePassword
 
     /**
      * ChangePassword constructor.
+     * @param ChangePasswordService $changePasswordService
      */
     public function __construct(ChangePasswordService $changePasswordService)
     {
@@ -22,13 +23,16 @@ class ChangePassword
     }
 
     /**
+     * @param Request $request
+     * @param string $id
+     * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function __invoke(Request $request, User $user): User
+    public function __invoke(Request $request, string $id): User
     {
         return $this->changePasswordService->changePassword(
-            $user->getId(),
+            $id,
             RequestService::getField($request, 'newPassword'),
             RequestService::getField($request, 'oldPassword')
         );

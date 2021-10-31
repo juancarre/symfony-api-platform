@@ -17,6 +17,8 @@ class ChangePasswordService
 
     /**
      * ChangePasswordService constructor.
+     * @param UserRepository $userRepository
+     * @param EncoderService $encoderService
      */
     public function __construct(UserRepository $userRepository, EncoderService $encoderService)
     {
@@ -25,6 +27,10 @@ class ChangePasswordService
     }
 
     /**
+     * @param string $userId
+     * @param string $newPassword
+     * @param string $oldPassword
+     * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */
