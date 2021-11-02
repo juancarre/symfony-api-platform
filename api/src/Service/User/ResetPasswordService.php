@@ -24,6 +24,10 @@ class ResetPasswordService
     }
 
     /**
+     * @param string $userId
+     * @param string $resetPasswordToken
+     * @param string $password
+     * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */
