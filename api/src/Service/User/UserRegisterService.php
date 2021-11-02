@@ -8,27 +8,39 @@ use App\Messenger\Message\UserRegisteredMessage;
 use App\Messenger\RoutingKey;
 use App\Repository\UserRepository;
 use App\Service\Password\EncoderService;
+use Doctrine\ORM\Exception\ORMException;
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpStamp;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class UserRegisterService
 {
     private UserRepository $userRepository;
-
     private EncoderService $encoderService;
-
     private MessageBusInterface $messageBus;
 
     /**
      * UserRegisterService constructor.
+     * @param UserRepository $userRepository
+     * @param EncoderService $encoderService
+     * @param MessageBusInterface $messageBus
      */
-    public function __construct(UserRepository $userRepository, EncoderService $encoderService, MessageBusInterface $messageBus)
+    public function __construct(
+        UserRepository $userRepository,
+        EncoderService $encoderService,
+        MessageBusInterface $messageBus
+    )
     {
         $this->userRepository = $userRepository;
         $this->encoderService = $encoderService;
         $this->messageBus = $messageBus;
     }
 
+    /**
+     * @param string $name
+     * @param string $email
+     * @param string $password
+     * @return User
+     */
     public function create(string $name, string $email, string $password): User
     {
         $user = new User($name, $email);
@@ -36,7 +48,7 @@ class UserRegisterService
 
         try {
             $this->userRepository->save($user);
-        } catch (\Exception $exception) {
+        } catch (ORMException $e) {
             throw UserAlreadyExistException::fromEmail($email);
         }
 

@@ -51,6 +51,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * @param User $user
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -60,6 +61,7 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * @param User $user
      * @throws ORMException
      * @throws OptimisticLockException
      */

@@ -11,6 +11,10 @@ class UserRegisteredMessage
 
     /**
      * UserRegisteredMessage constructor.
+     * @param string $id
+     * @param string $name
+     * @param string $email
+     * @param string $token
      */
     public function __construct(string $id, string $name, string $email, string $token)
     {
