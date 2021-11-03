@@ -3,6 +3,7 @@
 
 namespace App\Service\File;
 
+use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -30,8 +31,15 @@ class FileService
         $this->mediaPath = $mediaPath;
     }
 
+    /**
+     * @param UploadedFile $file
+     * @param string $prefix
+     * @return string
+     * @throws FilesystemException
+     */
     public function uploadFile(UploadedFile $file, string $prefix): string
     {
+        $extension = $file->guessExtension();
         $filename = sprintf('%s/%s.%s', $prefix, sha1(uniqid()), $file->guessExtension());
 
         $this->defaultStorage->writeStream(
@@ -56,7 +64,7 @@ class FileService
     {
         try {
             if (null !== $path) {
-                $this->defaultStorage->delete(explode($this->mediaPath, $path)[1]);
+                $this->defaultStorage->delete($path);
             }
         } catch (\Exception $e) {
             $this->logger->warning(sprintf('File %s not found in the storage', $path));

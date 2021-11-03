@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use App\Service\File\FileService;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 class UploadAvatarService
@@ -31,7 +32,7 @@ class UploadAvatarService
     }
 
     /**
-     * @param Request $request
+     * @param Request|MockObject $request
      * @param User $user
      * @return User
      * @throws ORMException
