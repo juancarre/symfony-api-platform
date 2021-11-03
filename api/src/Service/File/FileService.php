@@ -55,7 +55,7 @@ class FileService
     public function deleteFile(?string $path): void
     {
         try {
-            if (null === $path) {
+            if (null !== $path) {
                 $this->defaultStorage->delete(explode($this->mediaPath, $path)[1]);
             }
         } catch (\Exception $e) {
