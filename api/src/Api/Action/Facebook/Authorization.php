@@ -38,6 +38,6 @@ class Authorization
      */
     public function __invoke(Request $request): JsonResponse
     {
-        return new JsonResponse(['token' => $this->facebookService->authorize(RequestService::getField('accessToken'))]);
+        return new JsonResponse(['token' => $this->facebookService->authorize(RequestService::getField($request, 'accessToken'))]);
     }
 }

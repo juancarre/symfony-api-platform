@@ -36,7 +36,7 @@ class FacebookClient
      */
     public function get(string $endpoint, string $token): FacebookResponse
     {
-        $this->client->get($endpoint, $token);
+        return $this->client->get($endpoint, $token);
     }
 
 

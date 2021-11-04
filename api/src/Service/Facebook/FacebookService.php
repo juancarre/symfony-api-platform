@@ -12,7 +12,6 @@ use App\Service\Password\EncoderService;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Facebook\Exceptions\FacebookSDKException;
-use Facebook\GraphNodes\GraphUser;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
