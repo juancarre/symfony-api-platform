@@ -13,12 +13,16 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
+/**
+ * @method UserInterface loadUserByIdentifier(string $identifier)
+ */
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
     private UserRepository $userRepository;
 
     /**
      * UserProvider constructor.
+     * @param UserRepository $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -44,6 +48,8 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     }
 
     /**
+     * @param UserInterface $user
+     * @param string $newEncodedPassword
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -57,5 +63,10 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     public function supportsClass(string $class): bool
     {
         return User::class === $class;
+    }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement @method UserInterface loadUserByIdentifier(string $identifier)
     }
 }

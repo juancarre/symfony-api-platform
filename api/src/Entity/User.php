@@ -155,7 +155,8 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function __call($name, $arguments): void
+    public function equals(User $user): bool
     {
+        return $this->id === $user->getId();
     }
 }
