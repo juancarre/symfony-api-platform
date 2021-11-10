@@ -24,6 +24,8 @@ abstract class BaseRepository
 
     /**
      * BaseRepository constructor.
+     * @param ManagerRegistry $managerRegistry
+     * @param Connection $connection
      */
     public function __construct(ManagerRegistry $managerRegistry, Connection $connection)
     {
@@ -35,6 +37,7 @@ abstract class BaseRepository
     abstract protected static function entityClass(): string;
 
     /**
+     * @param object $entity
      * @throws ORMException
      */
     public function persistEntity(object $entity): void
