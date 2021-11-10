@@ -17,7 +17,7 @@ App\Entity\User:
       controller: App\Api\Action\User\ResendActivationEmail
       deserialize: false
       openapi_context:
-        summary: Send activation email to inactive user
+        summary: Sends activation email to inactive user
         requestBody:
           content:
             application/json:
@@ -170,7 +170,7 @@ App\Entity\User:
                   password:
                     type: string
                     required: true
-        response:
+        responses:
           200:
             description: OK
             content:
@@ -195,3 +195,9 @@ App\Entity\User:
                   newPassword:
                     type: string
                     required: true
+  properties:
+    groups:
+      subresource:
+        resourceClass: App\Entity\Group
+        collection: true
+        maxDepth: 1
