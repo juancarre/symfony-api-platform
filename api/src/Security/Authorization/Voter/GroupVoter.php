@@ -13,6 +13,7 @@ class GroupVoter extends Voter
     public const GROUP_READ = 'GROUP_READ';
     public const GROUP_UPDATE = 'GROUP_UPDATE';
     public const GROUP_DELETE = 'GROUP_DELETE';
+    public const GROUP_CREATE = 'GROUP_CREATE';
 
     protected function supports(string $attribute, $subject): bool
     {
@@ -27,7 +28,11 @@ class GroupVoter extends Voter
      */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
     {
-        if (in_array($attribute, $this->supportedAttributes(), true)) {
+        if ($attribute === self::GROUP_CREATE) {
+            return true;
+        }
+
+        if (in_array($attribute, [self::GROUP_READ, self::GROUP_UPDATE, self::GROUP_DELETE], true)) {
             return $subject->isOwnedBy($token->getUser());
         }
 
@@ -39,7 +44,8 @@ class GroupVoter extends Voter
         return [
             self::GROUP_READ,
             self::GROUP_UPDATE,
-            self::GROUP_DELETE
+            self::GROUP_DELETE,
+            self::GROUP_CREATE
         ];
     }
 }
