@@ -89,8 +89,24 @@ class TestBase extends WebTestCase
     /**
      * @throws Exception
      */
+    protected function getPeterGroupId()
+    {
+        return $this->initDbConnection()->executeQuery('SELECT id FROM user_group WHERE name = "Peter Group"')->fetchFirstColumn()[0];
+    }
+
+    /**
+     * @throws Exception
+     */
     protected function getBrianId()
     {
         return $this->initDbConnection()->executeQuery('SELECT id FROM user WHERE email = "brian@api.com"')->fetchFirstColumn()[0];
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function getBrianGroupId()
+    {
+        return $this->initDbConnection()->executeQuery('SELECT id FROM user_group WHERE name = "Brian Group"')->fetchFirstColumn()[0];
     }
 }
