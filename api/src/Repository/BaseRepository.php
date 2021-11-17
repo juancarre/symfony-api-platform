@@ -57,6 +57,7 @@ abstract class BaseRepository
     }
 
     /**
+     * @param object $entity
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -67,6 +68,7 @@ abstract class BaseRepository
     }
 
     /**
+     * @param object $entity
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -77,8 +79,10 @@ abstract class BaseRepository
     }
 
     /**
+     * @param string $query
      * @param array $params
      *
+     * @return array
      * @throws Exception
      */
     protected function executeFetchQuery(string $query, $params = []): array
@@ -87,6 +91,7 @@ abstract class BaseRepository
     }
 
     /**
+     * @param string $query
      * @param array $params
      *
      * @throws Exception
