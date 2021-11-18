@@ -10,7 +10,7 @@ use Mailer\Service\Mailer\MailerService;
 use Mailer\Templating\TwigTemplate;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class RequestResetPasswordHandler implements MessageHandlerInterface
+class RequestResetPasswordMessageHandler implements MessageHandlerInterface
 {
     /**
      * @var MailerService
@@ -22,7 +22,7 @@ class RequestResetPasswordHandler implements MessageHandlerInterface
     private string $host;
 
     /**
-     * RequestResetPasswordHandler constructor.
+     * RequestResetPasswordMessageHandler constructor.
      * @param MailerService $mailerService
      * @param string $host
      */

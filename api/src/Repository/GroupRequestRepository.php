@@ -20,8 +20,8 @@ class GroupRequestRepository extends BaseRepository
     public function findOnePendingByGroupIdUserIdAndTokenOrFail(
         string $groupId,
         string $userId,
-        string $token): GroupRequest
-    {
+        string $token
+    ): GroupRequest {
         if (null === $groupRequest = $this->objectRepository->findOneBy(
                 [
                     'group' => $groupId,
@@ -30,7 +30,7 @@ class GroupRequestRepository extends BaseRepository
                     'status' => GroupRequest::PENDING
                 ]
             )) {
-            throw new GroupRequestNotFoundException($groupId, $userId, $token);
+            throw GroupRequestNotFoundException::fromGroupIdUserIdAndToken($groupId, $userId, $token);
         }
 
         return $groupRequest;
