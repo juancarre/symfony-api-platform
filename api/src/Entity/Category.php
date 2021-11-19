@@ -110,4 +110,13 @@ class Category
     {
         return $this->owner->getId() === $user->getId();
     }
+
+    public function belongsToGroup(Group $groupPassed): bool
+    {
+        if (null !== $group = $this->group) {
+            return $groupPassed->getId() === $group->getId();
+        }
+
+        return false;
+    }
 }
