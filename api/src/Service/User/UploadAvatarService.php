@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use App\Service\File\FileService;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use League\Flysystem\FilesystemException;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -37,6 +38,7 @@ class UploadAvatarService
      * @return User
      * @throws ORMException
      * @throws OptimisticLockException
+     * @throws FilesystemException
      */
     public function uploadAvatar(Request $request, User $user): User
     {
@@ -44,7 +46,7 @@ class UploadAvatarService
 
         $this->fileService->deleteFile($user->getAvatar());
 
-        $fileName = $this->fileService->uploadFile($file, FileService::AVATAR_INPUT_NAME);
+        $fileName = $this->fileService->uploadFile($file, FileService::AVATAR_INPUT_NAME, 'public');
 
         $user->setAvatar($fileName);
 

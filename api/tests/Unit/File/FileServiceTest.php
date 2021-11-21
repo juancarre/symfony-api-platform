@@ -44,7 +44,7 @@ class FileServiceTest extends TestCase
         $uploadedFile->method('guessExtension')->willReturn('png');
         $prefix = 'avatar';
 
-        $response = $this->service->uploadFile($uploadedFile, $prefix);
+        $response = $this->service->uploadFile($uploadedFile, $prefix, 'public');
 
         $this->assertIsString($response);
     }

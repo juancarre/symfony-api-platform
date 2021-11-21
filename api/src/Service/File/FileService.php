@@ -3,9 +3,11 @@
 
 namespace App\Service\File;
 
+use App\Exception\File\FileNotFounException;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -13,6 +15,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class FileService
 {
     public const AVATAR_INPUT_NAME = 'avatar';
+    public const MOVEMENT_INPUT_NAME = 'file';
 
     private FilesystemOperator $defaultStorage;
     private LoggerInterface $logger;
@@ -32,23 +35,28 @@ class FileService
     }
 
     /**
-     * @param UploadedFile $file
-     * @param string $prefix
-     * @return string
      * @throws FilesystemException
      */
-    public function uploadFile(UploadedFile $file, string $prefix): string
+    public function uploadFile(UploadedFile $file, string $prefix, string $visibility): string
     {
-        $extension = $file->guessExtension();
         $filename = sprintf('%s/%s.%s', $prefix, sha1(uniqid()), $file->guessExtension());
 
         $this->defaultStorage->writeStream(
             $filename,
             fopen($file->getPathname(), 'r'),
-            ['visibility' => 'public']
+            ['visibility' => $visibility]
         );
 
         return $filename;
+    }
+
+    public function downloadFile(string $path): ?string
+    {
+        try {
+            return $this->defaultStorage->read($path);
+        } catch (FileNotFoundException $e) {
+            throw new FileNotFounException();
+        }
     }
 
     public function validateFile(Request $request, string $inputName): UploadedFile

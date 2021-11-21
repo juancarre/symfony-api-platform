@@ -20,7 +20,7 @@ final class Version20211119092718 extends AbstractMigration
                 id CHAR(36) NOT NULL PRIMARY KEY,
                 category_id CHAR(36) NOT NULL,
                 owner_id CHAR(36) NOT NULL,
-                group_id CHAR(36) NOT NULL,
+                group_id CHAR(36) DEFAULT NULL,
                 amount DECIMAL(8,2) NOT NULL,
                 file_path VARCHAR(255) DEFAULT NULL,
                 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
