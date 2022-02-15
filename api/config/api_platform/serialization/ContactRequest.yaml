@@ -1,0 +1,26 @@
+App\Entity\ContactRequest:
+    attributes:
+        id:
+            groups: [contact_request_read]
+        email:
+            groups: [contact_request_read, contact_request_create]
+        owner:
+            groups: [contact_request_read, contact_request_create]
+        active:
+            groups: [contact_request_read, contact_request_update]
+        contactReason:
+            groups: [contact_request_read, contact_request_create, contact_request_update]
+        message:
+            groups: [contact_request_read, contact_request_update]
+        requieredSkills:
+            groups: [contact_request_read, contact_request_update]
+        joinMyTeam:
+            groups: [contact_request_read, contact_request_update]
+        orderProject:
+            groups: [contact_request_read, contact_request_update]
+        meetingDate:
+            groups: [contact_request_read, contact_request_update]
+        createdAt:
+            groups: [contact_request_read]
+        updatedAt:
+            groups: [contact_request_read]

@@ -10,6 +10,10 @@
         <field name="token" length="100" nullable="true"/>
         <field name="active" type="boolean"/>
         <field name="resetPasswordToken" length="100" nullable="true"/>
+        <field name="companyName" length="100" nullable="true"/>
+        <field name="phoneNumber" length="20" nullable="true"/>
+        <field name="companyWeb" length="100" nullable="true"/>
+        <field name="userType" length="15" nullable="true"/>
         <field name="createdAt" type="datetime"/>
         <field name="updatedAt" type="datetime"/>
 
@@ -19,6 +23,12 @@
             </cascade>
         </one-to-many>
         
+        <one-to-many field="requests" target-entity="App\Entity\ContactRequest" mapped-by="owner">
+            <cascade>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
         <one-to-many field="movements" target-entity="App\Entity\Movement" mapped-by="owner">
             <cascade>
                 <cascade-remove/>

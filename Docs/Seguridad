@@ -1,0 +1,27 @@
+
+Git:
+	User: juancs.desarrollo.web@gmail.com
+	User Name: JcsDevelopment
+	Password: Cs357657
+
+DigitalOcean:
+	User: juancs.desarrollo.web@gmail.com
+	Password: Cs357657
+
+	Project: 
+		Name: jcsdevelopment_project
+		Subdomain: https://jcsdevelopment.fra1.digitaloceanspaces.com
+
+		User: root
+		Password: Cs357657
+
+nodejs-s-1vcpu-1gb-fra1-01:
+	
+
+Node Server:
+	Password: Cs91Development
+
+AWS: 
+	User: juancs.desarrollo.web@gmail.com
+	Password: Cs357657
+	Nombre de cuenta: jcsdevelopment

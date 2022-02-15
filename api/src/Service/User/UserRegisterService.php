@@ -8,7 +8,9 @@ use App\Messenger\Message\UserRegisteredMessage;
 use App\Messenger\RoutingKey;
 use App\Repository\UserRepository;
 use App\Service\Password\EncoderService;
+use App\Service\Request\RequestService;
 use Doctrine\ORM\Exception\ORMException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpStamp;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -36,15 +38,34 @@ class UserRegisterService
     }
 
     /**
-     * @param string $name
-     * @param string $email
-     * @param string $password
+     * @param Request $request
      * @return User
+     * @throws \Doctrine\ORM\ORMException
      */
-    public function create(string $name, string $email, string $password): User
+    public function create(Request $request): User
     {
+        $name = RequestService::getField($request, 'name');
+        $email = RequestService::getField($request, 'email');
+        $password = RequestService::getField($request, 'password');
+        $companyName = RequestService::getField($request, 'companyName', false)
+            ? RequestService::getField($request, 'companyName')
+            : null;
+        $companyWeb = RequestService::getField($request, 'companyWeb', false)
+            ? RequestService::getField($request, 'companyWeb')
+            : null;
+        $phoneNumber = RequestService::getField($request, 'phoneNumber', false)
+            ? RequestService::getField($request, 'phoneNumber')
+            : null;
+        $userType = RequestService::getField($request, 'userType', false)
+            ? RequestService::getField($request, 'userType')
+            : null;
+
         $user = new User($name, $email);
         $user->setPassword($this->encoderService->generateEncodedPassword($user, $password));
+        $user->setCompanyName($companyName);
+        $user->setCompanyWeb($companyWeb);
+        $user->setPhoneNumber($phoneNumber);
+        $user->setUserType($userType);
 
         try {
             $this->userRepository->save($user);

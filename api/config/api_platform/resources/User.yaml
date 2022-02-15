@@ -217,3 +217,8 @@ App\Entity\User:
         resourceClass: App\Entity\Movement
         collection: true
         maxDepth: 1
+    contactRequests:
+      subresource:
+        resourceClass: App\Entity\ContactRequest
+        collection: true
+        maxDepth: 1

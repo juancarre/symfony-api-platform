@@ -1,0 +1,23 @@
+App\Entity\ContactRequest:
+    attributes:
+        normalization_context:
+            groups: [contact_request_read]
+    collectionOperations:
+        post:
+            method: POST
+            security: is_granted("CONTACT_REQUEST_CREATE")
+            controller: App\Api\Action\ContactRequest\CreateContactRequest
+            denormalization_context:
+                groups: [contact_request_create]
+    itemOperations:
+        get:
+            method: GET
+            security: is_granted("CONTACT_REQUEST_READ", object)
+        put:
+            method: PUT
+            security: is_granted("CONTACT_REQUEST_UPDATE", object)
+            denormalization_context:
+                groups: [contact_request_update]
+        delete:
+            method: DELETE
+            security: is_granted("CONTACT_REQUEST_DELETE", object)
